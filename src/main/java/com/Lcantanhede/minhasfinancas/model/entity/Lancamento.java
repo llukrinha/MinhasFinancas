@@ -1,5 +1,7 @@
 package com.Lcantanhede.minhasfinancas.model.entity;
 
+import com.Lcantanhede.minhasfinancas.model.enums.StatusLancamento;
+import com.Lcantanhede.minhasfinancas.model.enums.TipoLancamento;
 import lombok.Data;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 

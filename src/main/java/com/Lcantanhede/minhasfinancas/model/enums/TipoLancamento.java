@@ -1,4 +1,4 @@
-package com.Lcantanhede.minhasfinancas.model.entity;
+package com.Lcantanhede.minhasfinancas.model.enums;
 
 public enum TipoLancamento {
 
