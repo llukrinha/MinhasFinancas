@@ -1,6 +1,6 @@
-package com.Lcantanhede.minhasfinancas.model.repository;
+package com.lcantanhede.minhasfinancas.model.repository;
 
-import com.Lcantanhede.minhasfinancas.model.entity.Usuario;
+import com.lcantanhede.minhasfinancas.model.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

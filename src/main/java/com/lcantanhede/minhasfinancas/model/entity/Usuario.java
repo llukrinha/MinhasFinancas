@@ -1,4 +1,4 @@
-package com.Lcantanhede.minhasfinancas.model.entity;
+package com.lcantanhede.minhasfinancas.model.entity;
 
 import lombok.Data;
 
