@@ -1,4 +1,4 @@
-package com.Lcantanhede.minhasfinancas;
+package com.lcantanhede.minhasfinancas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
