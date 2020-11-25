@@ -7,8 +7,6 @@ import com.lcantanhede.minhasfinancas.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
@@ -27,8 +25,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void validarEmail(String email) {
-        Optional<Usuario> usuario = repository.findByEmailIgnoreCase(email);
-        if (usuario.isPresent()){
+        boolean existe = repository.existsByEmail(email);
+        if (existe) {
             throw new RegraNegocioException("Já existe um usuário cadastrado com este email.");
         }
     }
