@@ -15,11 +15,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository repository;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     public Usuario autenticar(String email, String senha) {
-        Optional<Usuario> usuario= repository.findbyEmail(email);
+        Optional<Usuario> usuario= usuarioRepository.findByEmail(email);
 
         if(!usuario.isPresent()){
             throw new ErroAutenticacao("Usuario não encontrado para o email informado");
@@ -34,12 +34,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public Usuario salvarUsuario(Usuario usuario) {
         validarEmail(usuario.getEmail());
-        return repository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
     public void validarEmail(String email) {
-        boolean existe = repository.existsByEmail(email);
+        boolean existe = usuarioRepository.existsByEmail(email);
         if (existe) {
             throw new RegraNegocioException("Já existe um usuário cadastrado com este email.");
         }
