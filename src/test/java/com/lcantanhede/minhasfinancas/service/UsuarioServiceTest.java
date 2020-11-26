@@ -8,13 +8,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@SpringBootTest
-@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UsuarioServiceTest {
 
     @Autowired
@@ -29,9 +31,7 @@ class UsuarioServiceTest {
 
         usuarioRepository.deleteAll();
 
-        Assertions.assertDoesNotThrow(() ->
-                usuarioService.validarEmail("email@email.com")
-        );
+        Assertions.assertDoesNotThrow(() -> usuarioService.validarEmail("email@email.com"));
     }
 
     @Test
@@ -41,9 +41,8 @@ class UsuarioServiceTest {
         Usuario usuario = Usuario.builder().nome("usuario").email("email@email.com").build();
         usuarioRepository.save(usuario);
 
-        Assertions.assertThrows(RegraNegocioException.class, () -> {
-            usuarioService.validarEmail("email@email.com");
-        });
+        Assertions.assertThrows(RegraNegocioException.class, () -> usuarioService.validarEmail("email@email.com"));
 
     }
 }
+
