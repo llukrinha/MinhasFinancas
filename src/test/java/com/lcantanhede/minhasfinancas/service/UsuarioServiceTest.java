@@ -3,11 +3,10 @@ package com.lcantanhede.minhasfinancas.service;
 import com.lcantanhede.minhasfinancas.exception.RegraNegocioException;
 import com.lcantanhede.minhasfinancas.model.entity.Usuario;
 import com.lcantanhede.minhasfinancas.model.repository.UsuarioRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.lcantanhede.minhasfinancas.service.impl.UsuarioServiceImpl;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -19,15 +18,20 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UsuarioServiceTest {
 
-    @Autowired
     UsuarioService usuarioService;
-
-    @Autowired
     UsuarioRepository usuarioRepository;
+
+    @BeforeEach
+    public void setUp(){
+        usuarioService= Mockito.mock(UsuarioRepository.class);
+        usuarioService= new UsuarioServiceImpl(usuarioRepository);
+    }
 
     @Test
     @DisplayName("Deve validar um email")
     void validarEmail() {
+
+        UsuarioRepository usuarioRepositoryMock = Mockito.mock(UsuarioRepository.class);
 
         usuarioRepository.deleteAll();
 
