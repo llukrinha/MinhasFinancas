@@ -29,4 +29,15 @@ class UsuarioRepositoryTest {
 
         Assertions.assertThat(result).isTrue();
     }
+
+    @Test
+    @DisplayName("Deve retornar falso quando não houver usuario cadastrado com o email")
+    void retornoFalsoUsuarioEmail() {
+
+        usuarioRepository.deleteAll();
+
+        boolean result = usuarioRepository.existsByEmail("usuario@email.com");
+
+        Assertions.assertThat(result).isFalse();
+    }
 }
