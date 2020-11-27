@@ -9,8 +9,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
@@ -18,13 +21,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UsuarioServiceTest {
 
+
     UsuarioService usuarioService;
+
+    @MockBean
     UsuarioRepository usuarioRepository;
 
     @BeforeEach
-    public void setUp(){
-        usuarioRepository= Mockito.mock(UsuarioRepository.class);
-        usuarioService=new UsuarioServiceImpl(usuarioRepository);
+    public void setUp() {
+        usuarioService = new UsuarioServiceImpl(usuarioRepository);
     }
 
     @Test
@@ -34,6 +39,26 @@ class UsuarioServiceTest {
         Mockito.when(usuarioRepository.existsByEmail(Mockito.anyString())).thenReturn(false);
 
         Assertions.assertDoesNotThrow(() -> usuarioService.validarEmail("email@email.com"));
+    }
+
+    @Test
+    @DisplayName("Deve autenticar um usuario com sucesso")
+    void autenticarUsuario() {
+
+        String email = "email@email.com";
+        String senha = "senha";
+        ;
+
+        Usuario usuario = Usuario.builder().email(email).senha(senha).id(1L).build();
+
+        Mockito.when(usuarioRepository.findByEmail(email)).thenReturn(Optional.of(usuario));
+
+        Usuario result = usuarioService.autenticar(email, senha);
+
+        org.assertj.core.api.Assertions.assertThat(result).isNotNull();
+
+        Assertions.assertDoesNotThrow(() -> usuarioService.autenticar(email, senha));
+
     }
 
     @Test
