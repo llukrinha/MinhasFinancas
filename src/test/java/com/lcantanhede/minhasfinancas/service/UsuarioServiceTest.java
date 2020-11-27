@@ -23,17 +23,15 @@ class UsuarioServiceTest {
 
     @BeforeEach
     public void setUp(){
-        usuarioService= Mockito.mock(UsuarioRepository.class);
-        usuarioService= new UsuarioServiceImpl(usuarioRepository);
+        usuarioRepository= Mockito.mock(UsuarioRepository.class);
+        usuarioService=new UsuarioServiceImpl(usuarioRepository);
     }
 
     @Test
     @DisplayName("Deve validar um email")
     void validarEmail() {
 
-        UsuarioRepository usuarioRepositoryMock = Mockito.mock(UsuarioRepository.class);
-
-        usuarioRepository.deleteAll();
+        Mockito.when(usuarioRepository.existsByEmail(Mockito.anyString())).thenReturn(false);
 
         Assertions.assertDoesNotThrow(() -> usuarioService.validarEmail("email@email.com"));
     }
@@ -42,8 +40,7 @@ class UsuarioServiceTest {
     @DisplayName("Deve lançar error ao validar email quando existir email cadastrado")
     void validarEmailError() {
 
-        Usuario usuario = Usuario.builder().nome("usuario").email("email@email.com").build();
-        usuarioRepository.save(usuario);
+        Mockito.when(usuarioRepository.existsByEmail(Mockito.anyString())).thenReturn(true);
 
         Assertions.assertThrows(RegraNegocioException.class, () -> usuarioService.validarEmail("email@email.com"));
 
