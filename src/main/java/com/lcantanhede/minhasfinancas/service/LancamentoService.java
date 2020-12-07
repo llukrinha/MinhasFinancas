@@ -4,9 +4,7 @@ import com.lcantanhede.minhasfinancas.exception.RegraNegocioException;
 import com.lcantanhede.minhasfinancas.model.entity.Lancamento;
 import com.lcantanhede.minhasfinancas.model.enums.StatusLancamento;
 import com.lcantanhede.minhasfinancas.model.repository.LancamentoRepository;
-import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
