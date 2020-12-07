@@ -37,7 +37,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/autenticar")
-    public ResponseEntity autenticar(@Valid @RequestBody UsuarioDto usuarioDto) {
+    public ResponseEntity autenticar(@RequestBody UsuarioDto usuarioDto) {
         try {
             Usuario usuarioAutenticado = usuarioService.autenticar(usuarioDto.getEmail(), usuarioDto.getSenha());
             return ResponseEntity.ok(usuarioAutenticado);
