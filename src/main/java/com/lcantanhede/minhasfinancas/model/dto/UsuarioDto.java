@@ -32,4 +32,8 @@ public class UsuarioDto {
     @NotBlank
     @Email
     private String email;
+
+    @Column(name = "senha")
+    @NotBlank
+    private String senha;
 }
